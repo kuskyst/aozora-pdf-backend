@@ -13,7 +13,7 @@ public class ConvertController {
         this.helloService = helloService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @PostMapping(value = "/")
     public String convert(@RequestBody ConvertParam param) {
         return this.helloService.convert(param);
     }
