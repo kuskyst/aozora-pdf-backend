@@ -7,15 +7,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ConvertController {
 
-    private final ConvertService helloService;
+    private final ConvertService convertService;
 
-    public ConvertController(ConvertService helloService) {
-        this.helloService = helloService;
+    public ConvertController(ConvertService convertService) {
+        this.convertService = convertService;
     }
 
     @PostMapping(value = "/")
     public String convert(@RequestBody ConvertParam param) {
-        return this.helloService.convert(param);
+
+        String result = "failure!!!";
+
+        return result + this.convertService.convert(param);
     }
 
 }
