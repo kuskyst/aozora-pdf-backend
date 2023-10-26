@@ -22,14 +22,18 @@ public class ConvertController {
     @PostMapping(value = "/")
     public ResponseEntity<Resource> convert(@RequestBody ConvertParam param) {
 
-        this.convertService.convert(param);
-        Path path = Path.of(param.getName() + ".pdf");
-        Resource resource = new PathResource(path);
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_PDF)
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                    "attachment; filename=\"" + param.getName() + ".pdf" + "\"")
-                .body(resource);
+        String result = this.convertService.convert(param);
+        if (result != null) {
+            Path path = Path.of(result);
+            Resource resource = new PathResource(path);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"" + param.getName() + ".pdf" + "\"")
+                    .body(resource);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 }
